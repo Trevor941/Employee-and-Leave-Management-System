@@ -19,5 +19,9 @@ class LeaveStateSeeder extends Seeder
         $state2 = LeaveState::create([
             'name' => 'Inactive'
         ]);
+
+        $state3 = LeaveState::create([
+            'name' => 'Expired'
+        ]);
     }
 }

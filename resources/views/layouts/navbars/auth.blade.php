@@ -5,7 +5,7 @@
                 <img src="{{ asset('paper') }}/img/logo-small.png">
             </div>
         </a>
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="#" class="simple-text logo-normal text-capitalize">
            {{ auth()->user()->name}}
         </a>
     </div>
@@ -19,9 +19,9 @@
             </li>
             <li class="{{ $elementActive == 'user' || $elementActive == 'profile' ? 'active' : '' }}">
                 <a data-toggle="collapse" aria-expanded="true" href="#laravelExamples">
-                    <i class="fa fa-users"></i>
+                    <i class="fa fa-user"></i>
                     <p>
-                            Employees
+                            My Profile
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -33,34 +33,36 @@
                                 <span class="sidebar-normal">My Profile</span>
                             </a>
                         </li>
-                        <li class="{{ $elementActive == 'user' ? 'active' : '' }}">
-                            <a href="{{ route('page.index', 'user') }}">
+                        <li class="{{ $elementActive == 'leaveapp' ? 'active' : '' }}">
+                            <a href="/leaves/create">
                                 <span class="sidebar-mini-icon">{{ __('U') }}</span>
-                                <span class="sidebar-normal">Employees List</span>
+                                <span class="sidebar-normal">Leave Application</span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
-            <li class="{{ $elementActive == 'add' ? 'active' : '' }}">
+            @if(auth()->user()->role_id === 1)
+            <li class="{{ $elementActive == 'allemployees' ? 'active' : '' }}">
+                <a href="{{ route('user.index') }}">
+                   <i class="fa fa-paste"></i>
+                    <p>All Employees</p>
+                </a>
+             </li>
+            <li class="{{ $elementActive == 'addUsers' ? 'active' : '' }}">
                 <a href="/user/create">
                    <i class="fa fa-user-plus"></i>
                     <p>ADD EMPLOYEES</p>
                 </a>
             </li>
-            <li class="">
+            
+             <li class="{{ $elementActive == 'leaves' ? 'active' : '' }}">
                 <a href="{{ route('leaves.index') }}">
                    <i class="fa fa-paste"></i>
-                    <p>All Leave Applications</p>
+                    <p>All leave Applications</p>
                 </a>
              </li>
-             <li class="{{ $elementActive == 'map' ? 'active' : '' }}">
-                <a href="{{ route('leaves.create') }}">
-                   <i class="fa fa-paste"></i>
-                    <p>Apply for Leave</p>
-                </a>
-             </li>
-             
+             @endif
              {{--
             <li class="{{ $elementActive == 'notifications' ? 'active' : '' }}">
                 <a href="{{ route('page.index', 'notifications') }}">

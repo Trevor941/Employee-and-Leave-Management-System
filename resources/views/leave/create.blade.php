@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'leave'
+    'elementActive' => 'leaveapp'
 ])
 
 @section('content')
@@ -13,6 +13,11 @@
         @if (session('password_status'))
             <div class="alert alert-success" role="alert">
                 {{ session('password_status') }}
+            </div>
+        @endif
+        @if(session('error'))
+        <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
             </div>
         @endif
         <div class="row">
@@ -30,10 +35,10 @@
                                 <label class="col-md-3 col-form-label">Starting Date</label>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                        <input type="date" name="StartingDate" class="form-control" placeholder ="Select date" required>
+                                        <input type="date" name="StartingDate" id="StartingDate" class="form-control"  placeholder ="Select date">
                                     </div>
                                     @if ($errors->has('StartingDate'))
-                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <span class="invalid-feedback" style="display: block;text-align:left;padding: 3px 0px;" role="alert">
                                             <strong>{{ $errors->first('StartingDate') }}</strong>
                                         </span>
                                     @endif
@@ -43,10 +48,10 @@
                                 <label class="col-md-3 col-form-label">Ending Date</label>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                        <input type="date" name="EndingDate" class="form-control" placeholder ="Select date" required>
+                                        <input type="date" name="EndingDate" id="EndingDate" class="form-control" placeholder ="Select date">
                                     </div>
                                     @if ($errors->has('EndingDate'))
-                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <span class="invalid-feedback" style="display: block;text-align:left;padding: 3px 0px;" role="alert">
                                             <strong>{{ $errors->first('EndingDate') }}</strong>
                                         </span>
                                     @endif
@@ -63,7 +68,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Employees</h4>
@@ -136,7 +141,24 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection
+@section('scripts')
+ <script type="text/javascript">
+  $(document).ready(function(){
+    
+    $('#StartingDate').on('change', function() {
+       
+       var StartingDate = $(this).val();
+        var EndingDate = StartingDate ;
+      $("#EndingDate").val(EndingDate);
+      });
+  });
+  var date = new Date('2021/08/12'); 
+date. setDate(date. getDate() + 7); 
+console. log(date);
+</script> 
+@endsection
+

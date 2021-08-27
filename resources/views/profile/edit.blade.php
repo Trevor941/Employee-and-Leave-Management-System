@@ -45,13 +45,13 @@
                                 <div class="col-lg-3 col-md-6 col-6 ml-auto">
                                     <h5>4
                                         <br>
-                                        <small>Projects</small>
+                                        <small>Leave Status</small>
                                     </h5>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
                                     <h5>3
                                         <br>
-                                        <small>Years of Experience</small>
+                                        <small>Attendance</small>
                                     </h5>
                                 </div>
                                 <div class="col-lg-3 mr-auto">

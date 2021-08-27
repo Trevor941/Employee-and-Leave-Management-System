@@ -11,6 +11,7 @@ class User extends Authenticatable
 {
     use SoftDeletes;
     use HasFactory, Notifiable;
+    
 
     /**
      * The attributes that are mass assignable.
@@ -58,5 +59,9 @@ class User extends Authenticatable
     }
     public function maritalStatus(){
         return $this->belongsTo(MaritalStatus::class);
+    }
+
+    public function leave(){
+        return $this->hasOne(Leave::class);
     }
 }

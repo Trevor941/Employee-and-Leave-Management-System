@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'add'
+    'elementActive' => 'leaves'
 ])
 
 @section('content')
@@ -15,57 +15,84 @@
                 {{ session('password_status') }}
             </div>
         @endif
+        
         <div class="row">
             <div class=" col-md-12 text-center">
                     <div class="card">
-                    @if (count($leaves) >0)
+                    @if (count($leaveapps) >0)
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead class=" text-primary">
-                                    <th>
-                                        Name
+                                 <th>
+                                        Employee Name
                                     </th>
                                     <th>
-                                        Email
+                                        Starting Date
                                     </th>
                                     <th>
-                                        Gender
+                                        Ending Date
                                     </th>
                                     <th>
-                                        Marital Status
+                                        Status
                                     </th>
                                     <th>
-                                        Department
+                                        State
                                     </th>
-                                    <th class="text-right">
-                                        Phone
+                                    <th>
+                                    Action
                                     </th>
-                                    <th class="text-right">
-                                        Position
-                                    </th>
-                                    <th class="text-right">
-                                        Action
-                                    </th>
-                                    
                                 </thead>
-                                @foreach ($leaves as $user )
+                                @foreach ($leaveapps as $app )
                                 <tbody>
                                     <tr>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->email}}</td>
-                                    <td>{{$user->gender->name}}</td>
-                                    <td>{{$user->maritalStatus->status}}</td>
-                                    <td>{{$user->department->name}}</td>
-                                    <td>{{$user->phone}}</td>
-                                    <td>{{$user->position}}</td>
+                                   <td>{{$app->user->name}}</td>
+                                    <td>{{$app->StartingDate}}</td>
+                                    <td>{{$app->EndingDate}}</td>
                                     <td>
-                                    <a href="user/{{$user->id}}/edit" class=" btn btn-sm btn-info">Edit</a>
-                                    </td>
+                                    @if($app->leaveStatus->id === 1)
+                                    <span class="text-warning">{{$app->leaveStatus->name}}</span>
+                                    @elseif($app->leaveStatus->id === 2)
+                                    <span class="text-success">{{$app->leaveStatus->name}}</span>
+                                    @else
+                                    <span class="text-danger">{{$app->leaveStatus->name}}</span>
+                                    @endif
+                                    </td> 
+                                     <td>
+                                     {{-- @if($app->leaveState->id === 1)
+                                     <span class="text-success">{{$app->leaveState->name}}</span>
+                                     @else
+                                     <span class="text-warning">{{$app->leaveState->name}}</span>
+                                     @endif --}}
+                                     @if( now() >= $app->StartingDate && now() <= $app->EndingDate && $app->leaveStatus->id === 2)
+                                     <span class="text-success">Active</span>
+                                     @else
+                                     <span class="text-warning">Inactive</span>
+                                     @endif
+                                     </td>
+                                    
                                     <td>
-                                    <form action ="/user/{{$user->id}}" method="POST">
+                                    <form action ="{{route('leaves.update', $app->id)}}" method="POST">
                                     @csrf
-                                    @method('delete')
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    @method('PUT')
+                                    <div class="row">
+                                    <div class="col-md-12">
+                                    <select class="form-control" name="leave_statuses_id">
+                                    <ul>
+                                    @foreach ($Statuses as $status)
+                                        <li>
+                                        <option value="{{$status->id}}"
+                                        @if($status->id === $app->leaveStatus->id )
+                                        selected
+                                        @endif
+                                        >
+                                        {{$status->name}}
+                                        </option>
+                                        </li>
+                                    @endforeach
+                                    </ul>
+                                    </select>
+                                    <button type="submit" class="btn my-1 btn-block btn-success">Action</button>
+                                    </div>
                                     </form>
                                     </td>
                                     </tr>
@@ -82,8 +109,3 @@
     </div>
     
 @endsection
-<script type="text/javascript">
-    $(function() {
-    $('.datetimepicker').datepicker();
-    });
-</script> 

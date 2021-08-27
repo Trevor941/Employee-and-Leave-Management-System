@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class LeaveStatus extends Model
 {
     use HasFactory;
+
+    public function leave(){
+        return $this->hasOne(Leave::class);
+    }
 }

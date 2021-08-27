@@ -59,7 +59,7 @@
     @stack('scripts')
 
     @include('layouts.navbars.fixed-plugin-js')
-  
+  @yield('scripts')
 </body>
 
 </html>
