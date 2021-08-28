@@ -21,7 +21,6 @@
             </div>
         @endif
         <div class="row">
-            
             <div class="col-md-8 text-center">
                 <form class="col-md-12" action="{{ route('leaves.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf

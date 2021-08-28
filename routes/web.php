@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ArticleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,9 +35,14 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
+	Route::resource('articles','App\Http\Controllers\ArticleController');
+// Route for get articles for yajra post request.
+Route::get('get-articles', 'App\Http\Controllers\ArticleController@getArticles')->name('get-articles');
 	Route::get('leaveapps', 'App\Http\Controllers\LeavesController@leaveApplications');
 	Route::resource('leaves', 'App\Http\Controllers\LeavesController');
 	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
+	// Resource Route for article.
+
 });
 Route::get('user/notifications', 'App\Http\Controllers\UserController@notifications');
 
