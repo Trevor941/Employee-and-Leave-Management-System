@@ -35,6 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
+	Route::get('crop-image-before-upload-using-croppie', 'App\Http\Controllers\CropImageController@index');
+Route::post('crop-image-before-upload-using-croppie', ['as'=>'croppie.upload-image','uses'=>'App\Http\Controllers\CropImageController@uploadCropImage']);
 	Route::resource('articles','App\Http\Controllers\ArticleController');
 // Route for get articles for yajra post request.
 Route::get('get-articles', 'App\Http\Controllers\ArticleController@getArticles')->name('get-articles');
