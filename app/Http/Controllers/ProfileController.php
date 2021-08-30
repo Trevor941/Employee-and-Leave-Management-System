@@ -32,9 +32,28 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request)
     {
-        auth()->user()->update($request->all());
-
-        return back()->withStatus(__('Profile successfully updated.'));
+        
+        // if($request->hasFile('image')){
+        //     $image = $request->file('image');
+        //      $imageName = time().'.'.$image->extension();
+        //      $image->move(public_path('images'), $imageName);
+        //      auth()->user()->profilepic = $imageName;
+        //     }
+        //     auth()->user()->update($request->all());
+           
+            $image = $request->image;
+           // if($request->hasFile('image')){
+            list($type, $image) = explode(';', $image);
+            list(, $image)      = explode(',', $image);
+            $image = base64_decode($image);
+            $image_name= time().'.png';
+            $path = public_path('upload/'.$image_name);
+            auth()->user()->profilepic = $image_name;
+            file_put_contents($path, $image);
+           // }
+            
+            auth()->user()->update($request->all());
+       return back()->withStatus(__('Profile successfully updated.'));
     }
 
     /**

@@ -24,8 +24,16 @@
     <link href="{{ asset('paper') }}/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('paper') }}/demo/demo.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-@yield('scriptsdt')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
+@
+ 
+@yield('topscripts')
+<style>
+.form-group input[type=file]{
+    opacity: 1 !important;
+    height: calc(2.25rem + 2px);
+}
+</style>
 </head>
 
 <body class="{{ $class }}">
@@ -58,7 +66,9 @@
     <script src="../assets/demo/jquery.sharrre.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @stack('scripts')
-
+     
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
     @include('layouts.navbars.fixed-plugin-js')
   @yield('scripts')
 </body>

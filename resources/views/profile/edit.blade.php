@@ -2,7 +2,12 @@
     'class' => '',
     'elementActive' => 'profile'
 ])
-
+@section('topscripts')
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
+@endsection
 @section('content')
     <div class="content">
         @if (session('status'))
@@ -265,11 +270,34 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+        <div class="col-md-4 text-center">
+        <div id="upload-demo"></div>
+        </div>
+        <div class="col-md-4" style="padding:5%;">
+        <strong>Select image to crop:</strong>
+        <input type="file" id="image">
+
+        <button class="btn btn-primary btn-block upload-image" style="margin-top:2%">Upload Image</button>
+        </div>
+
+        <div class="col-md-4">
+        <div id="preview-crop-image" style="background:#9d9d9d;width:300px;padding:50px 50px;height:300px;"></div>
+        </div>
+      </div>
+                                <div class="row">
+                                <label class="col-md-3 col-form-label">Profile Pic</label>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <input type="file" name="image" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-footer ">
                             <div class="row">
                                 <div class="col-md-12 text-center">
-                                    <button type="submit" class="btn btn-info btn-round">{{ __('Save Changes') }}</button>
+                                    <button type="submit" class="upload-image btn btn-info btn-round">{{ __('Save Changes') }}</button>
                                 </div>
                             </div>
                         </div>
@@ -326,7 +354,7 @@
                         <div class="card-footer ">
                             <div class="row">
                                 <div class="col-md-12 text-center">
-                                    <button type="submit" class="btn btn-info btn-round">{{ __('Save Changes') }}</button>
+                                    <button type="submit" class=" btn btn-info btn-round">{{ __('Save Changes') }}</button>
                                 </div>
                             </div>
                         </div>
@@ -337,8 +365,64 @@
     </div>
     
 @endsection
+@section('scripts')
+
 <script type="text/javascript">
-    $(function() {
-    $('.datetimepicker').datepicker();
+
+$.ajaxSetup({
+headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+}
+});
+
+
+var resize = $('#upload-demo').croppie({
+    enableExif: true,
+    enableOrientation: true,    
+    viewport: { // Default { width: 100, height: 100, type: 'square' } 
+        width: 200,
+        height: 200,
+        type: 'circle' //square
+    },
+    boundary: {
+        width: 300,
+        height: 300
+    }
+});
+
+
+$('#image').on('change', function () { 
+  var reader = new FileReader();
+    reader.onload = function (e) {
+      resize.croppie('bind',{
+        url: e.target.result
+      }).then(function(){
+        console.log('jQuery bind complete');
+      });
+    }
+    reader.readAsDataURL(this.files[0]);
+});
+
+
+$('.upload-image').on('click', function (ev) {
+  resize.croppie('result', {
+    type: 'canvas',
+    size: 'viewport'
+  }).then(function (img) {
+    $.ajax({
+      url: "{{route('profile.update')}}",
+      type: "PUT",
+      data: {"image":img},
+      success: function (data) {
+        html = '<img src="' + img + '" />';
+        $("#preview-crop-image").html(html);
+        console.log(image);
+      }
     });
-</script> 
+  });
+});
+
+
+</script>
+
+@endsection

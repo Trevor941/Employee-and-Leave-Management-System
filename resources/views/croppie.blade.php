@@ -88,6 +88,7 @@ $('.upload-image').on('click', function (ev) {
       success: function (data) {
         html = '<img src="' + img + '" />';
         $("#preview-crop-image").html(html);
+        console.log(image);
       }
     });
   });
