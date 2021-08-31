@@ -2,12 +2,7 @@
     'class' => '',
     'elementActive' => 'profile'
 ])
-@section('topscripts')
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
-@endsection
+
 @section('content')
     <div class="content">
         @if (session('status'))
@@ -22,6 +17,28 @@
         @endif
         <div class="row">
             <div class="col-md-4">
+            <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Change Profile Picture</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+        <div class="col-md-12 text-center">
+        <div id="upload-demo"></div>
+        </div>
+        <div class="offset-md-2 col-md-8">
+        {{-- <strong>Select image to crop:</strong> --}}
+        <input type="file" id="image">
+
+        <button class="btn btn-primary btn-block upload-image" style="margin-top:2%;">Upload Image</button>
+        </div>
+
+        <div class="col-md-12">
+        <div id="preview-crop-image" style="background:#9d9d9d;width:300px;padding:50px 50px;height:300px;display:none;"></div>
+        </div>
+      </div>
+                    </div>
+                </div>
                 <div class="card card-user">
                     <div class="image">
                         <img src="{{ asset('paper/img/damir-bosnjak.jpg') }}" alt="...">
@@ -29,7 +46,8 @@
                     <div class="card-body">
                         <div class="author">
                             <a href="#">
-                                <img class="avatar border-gray" src="{{ asset('paper/img/mike.jpg') }}" alt="...">
+                            {{-- <div id="preview-crop-image"></div> --}}
+                                <img class="avatar border-gray" src="upload/{{auth()->user()->profilepic}}" alt="...">
 
                                 <h5 class="title">{{ __(auth()->user()->name)}}</h5>
                             </a>
@@ -69,78 +87,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">{{ __('Team Members') }}</h4>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-unstyled team-members">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-2 col-2">
-                                        <div class="avatar">
-                                            <img src="{{ asset('paper/img/faces/ayo-ogunseinde-2.jpg') }}" alt="Circle Image"
-                                                class="img-circle img-no-padding img-responsive">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-7 col-7">
-                                        {{ __('DJ Khaled') }}
-                                        <br />
-                                        <span class="text-muted">
-                                            <small>{{ __('Offline') }}</small>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-3 col-3 text-right">
-                                        <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i
-                                                class="fa fa-envelope"></i></button>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-2 col-2">
-                                        <div class="avatar">
-                                            <img src="{{ asset('paper/img/faces/joe-gardner-2.jpg') }}" alt="Circle Image"
-                                                class="img-circle img-no-padding img-responsive">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-7 col-7">
-                                            {{ __('Creative Tim') }}
-                                        <br />
-                                        <span class="text-success">
-                                            <small>{{ __('Available') }}</small>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-3 col-3 text-right">
-                                        <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i
-                                                class="fa fa-envelope"></i></button>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-2 col-2">
-                                        <div class="avatar">
-                                            <img src="{{ asset('paper/img/faces/clem-onojeghuo-2.jpg') }}" alt="Circle Image"
-                                                class="img-circle img-no-padding img-responsive">
-                                        </div>
-                                    </div>
-                                    <div class="col-ms-7 col-7">
-                                        {{ __('Flume') }}
-                                        <br />
-                                        <span class="text-danger">
-                                            <small>{{ __('Busy') }}</small>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-3 col-3 text-right">
-                                        <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i
-                                                class="fa fa-envelope"></i></button>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                
             </div>
             <div class="col-md-8 text-center">
                 <form class="col-md-12" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
@@ -270,29 +217,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-        <div class="col-md-4 text-center">
-        <div id="upload-demo"></div>
-        </div>
-        <div class="col-md-4" style="padding:5%;">
-        <strong>Select image to crop:</strong>
-        <input type="file" id="image">
-
-        <button class="btn btn-primary btn-block upload-image" style="margin-top:2%">Upload Image</button>
-        </div>
-
-        <div class="col-md-4">
-        <div id="preview-crop-image" style="background:#9d9d9d;width:300px;padding:50px 50px;height:300px;"></div>
-        </div>
-      </div>
-                                <div class="row">
-                                <label class="col-md-3 col-form-label">Profile Pic</label>
-                                <div class="col-md-9">
-                                    <div class="form-group">
-                                        <input type="file" name="image" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="card-footer ">
                             <div class="row">
@@ -366,7 +290,6 @@
     
 @endsection
 @section('scripts')
-
 <script type="text/javascript">
 
 $.ajaxSetup({
@@ -410,13 +333,15 @@ $('.upload-image').on('click', function (ev) {
     size: 'viewport'
   }).then(function (img) {
     $.ajax({
-      url: "{{route('profile.update')}}",
+      url: "{{route('profilepic.update')}}",
       type: "PUT",
       data: {"image":img},
+       _token: '{{csrf_token()}}',
       success: function (data) {
         html = '<img src="' + img + '" />';
         $("#preview-crop-image").html(html);
-        console.log(image);
+        $("#profile-image").attr('src', img);
+     //
       }
     });
   });
@@ -424,5 +349,6 @@ $('.upload-image').on('click', function (ev) {
 
 
 </script>
+
 
 @endsection

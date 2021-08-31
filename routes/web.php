@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::delete('/user/deletePermanently/{user}', 'App\Http\Controllers\UserController@deletePermanently');
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
+	Route::put('profilepic', ['as' => 'profilepic.update', 'uses' => 'App\Http\Controllers\ProfileController@updateProfile']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 });
 

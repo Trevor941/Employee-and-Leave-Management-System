@@ -11,9 +11,9 @@ use DateTime;
 
 class LeavesController extends Controller
 {
-    public function __construct(){
-        $this->middleware('admin', ['except' => 'create']);
-    }
+    // public function __construct(){
+    //     $this->middleware('admin', ['except' => 'create']);
+    // }
     /**
      * Display a listing of the resource.
      *
