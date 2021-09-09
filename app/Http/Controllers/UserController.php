@@ -11,6 +11,7 @@ use App\Models\MaritalStatus;
 use App\Models\Department;
 use App\Models\Gender;
 use App\Models\User;
+use App\Models\Leave;
 use App\Notifications\NewUserCreated;
 
 class UserController extends Controller
@@ -32,7 +33,8 @@ class UserController extends Controller
 
 
     public function create(){
-        return view('users.create');
+        return view('users.create')
+        ->with('users', User::latest()->limit(5)->get());
         // ->with('maritalStatus', MaritalStatus::all())
         // ->with('genders', Gender::all())
         // ->with('departments', Department::all());

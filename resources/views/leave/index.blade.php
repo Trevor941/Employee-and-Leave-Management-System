@@ -64,14 +64,28 @@
                                      <span class="text-warning">{{$app->leaveState->name}}</span>
                                      @endif --}}
                                      @if( now() >= $app->StartingDate && now() <= $app->EndingDate && $app->leaveStatus->id === 2)
-                                     <span class="text-success">Active</span>
+                                     <span class="text-success font-weight-bold">Active</span>
+                                      @elseif(now() > $app->EndingDate && $app->leaveStatus->id === 2)
+                                      <span class="text-success">Completed</span>
+                                      @elseif($app->leaveStatus->id === 3)
+                                      <span class="text-danger">Rejected</span>
+                                       @elseif(now() > $app->EndingDate && $app->leaveStatus->id === 1)
+                                      <span class="text-warning">Expired</span>
                                      @else
                                      <span class="text-warning">Inactive</span>
                                      @endif
                                      </td>
-                                    
                                     <td>
-                                    <form action ="{{route('leaves.update', $app->id)}}" method="POST">
+                                    @if(now() > $app->EndingDate && $app->leaveStatus->id === 2)
+                                    <span class="text-success font-weight-bold">No Action</span>
+                                    @elseif($app->leaveStatus->id === 3)
+                                      <span class="text-danger font-weight-bold">No Action</span>
+                                      @elseif( now() > $app->EndingDate && $app->leaveStatus->id === 1 )
+                                      <span class="text-warning font-weight-bold">No Action</span>
+                                      @elseif( now() >= $app->StartingDate && now() <= $app->EndingDate && $app->leaveStatus->id === 2 )
+                                      <span class="text-success font-weight-bold">No Action</span>
+                                    @else
+                                       <form action ="{{route('leaves.update', $app->id)}}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div class="row">
@@ -94,6 +108,7 @@
                                     <button type="submit" class="btn my-1 btn-block btn-success">Action</button>
                                     </div>
                                     </form>
+                                    @endif
                                     </td>
                                     </tr>
                                 </tbody>
