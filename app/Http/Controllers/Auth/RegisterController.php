@@ -72,6 +72,7 @@ class RegisterController extends Controller
             'phone'=> '',
             'gender_id'=>1,
             'position'=> '',
+            'profilepic'=> '',
             'DOB' => Carbon::now(),
             'marital_status_id'=> 1,
              'department_id'=>3,

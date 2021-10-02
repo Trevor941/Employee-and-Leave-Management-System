@@ -57,6 +57,7 @@ class UserController extends Controller
              'role_id' => 2,
              'phone'=> '',
              'gender_id'=>1,
+             'profilepic'=>'',
             'position'=> '',
              'DOB' => Carbon::now(),
              'marital_status_id'=> 1,

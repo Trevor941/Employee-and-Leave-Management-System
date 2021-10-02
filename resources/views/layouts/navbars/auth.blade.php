@@ -2,7 +2,11 @@
     <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-mini">
             <div class="logo-image-small">
-                <img src="upload/{{auth()->user()->profilepic}}">
+            @if(auth()->user()->profilepic == '')
+             <img src="/paper/img/default-avatar.png">
+            @else
+             <img src="upload/{{auth()->user()->profilepic}}">
+            @endif
             </div>
         </a>
         <a href="#" class="simple-text logo-normal text-capitalize">

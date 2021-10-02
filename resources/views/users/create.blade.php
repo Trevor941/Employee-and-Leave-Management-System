@@ -23,7 +23,7 @@
                             <h5 class="title">Create A User</h5>
                         </div>
                         <div class="card-body">
-                          <form class="form" method="POST" action="{{ route('user.store') }}">
+                          <form class="form" method="POST" action="{{ route('user.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="input-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                     <div class="input-group-prepend">

@@ -47,7 +47,12 @@
                         <div class="author">
                             <a href="#">
                             {{-- <div id="preview-crop-image"></div> --}}
-                                <img class="avatar border-gray" src="upload/{{auth()->user()->profilepic}}" alt="...">
+                                {{-- <img class="avatar border-gray" src="upload/{{auth()->user()->profilepic}}" alt="..."> --}}
+                                       @if(auth()->user()->profilepic == '')
+             <img src="/paper/img/default-avatar.png" class="avatar border-gray">
+            @else
+             <img src="upload/{{auth()->user()->profilepic}}">
+            @endif
 
                                 <h5 class="title">{{ __(auth()->user()->name)}}</h5>
                             </a>

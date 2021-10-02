@@ -26,6 +26,7 @@ class User extends Authenticatable
         'position',
         'gender_id',
         'DOB',
+        'profilepic',
         'role_id',
         'marital_status_id',
         'department_id' 

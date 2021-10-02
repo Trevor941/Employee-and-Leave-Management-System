@@ -105,6 +105,7 @@
                                     @endforeach
                                     </ul>
                                     </select>
+                                    <input type="number" class="form-control" placeholder="Additional days" name="AdditionalDays"/>
                                     <button type="submit" class="btn my-1 btn-block btn-success">Action</button>
                                     </div>
                                     </form>

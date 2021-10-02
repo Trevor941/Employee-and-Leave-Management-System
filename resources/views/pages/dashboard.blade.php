@@ -1,3 +1,7 @@
+<?php
+       use App\Http\Controllers\UserController;
+       $users = UserController::index();
+      ?>
 @extends('layouts.app', [
     'class' => '',
     'elementActive' => 'dashboard'
@@ -28,7 +32,7 @@
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
                                     <p class="card-category">All Employees</p>
-                                    <p class="card-title">22
+                                    <p class="card-title">{{$users->count()}}
                                         <p>
                                 </div>
                             </div>

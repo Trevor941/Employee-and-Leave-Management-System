@@ -7,6 +7,7 @@ use App\Http\Requests\LeaveRequest;
 use App\Models\Leave;
 use App\Models\LeaveStatus;
 use App\Models\LeaveState;
+use Illuminate\Support\Carbon;
 use DateTime;
 
 class LeavesController extends Controller
@@ -76,7 +77,7 @@ class LeavesController extends Controller
             }
         }
         else{
-            return back()->withError(' You cannot apply for leave more than once. Be patient, wait for approval from the HR.'); 
+            return back()->withError(' You cannot apply for leave more than once.'); 
         }
         
         
@@ -115,6 +116,10 @@ class LeavesController extends Controller
     {
         $app = Leave::findOrFail($id);
         $app->leave_statuses_id = $request->leave_statuses_id;
+        $AdditionalDays = $request->AdditionalDays;
+        $newdate = Carbon::parse($app->EndingDate)->addDays($AdditionalDays);
+        $app->EndingDate = $newdate;
+        
         $app->update();
         return back()->withStatus(__('Action completed successfully'));
 
